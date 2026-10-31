@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LocadoraCarros.Api/LocadoraCarros.Api.csproj" />
+    <Project Path="src/LocadoraCarros.Application/LocadoraCarros.Application.csproj" />
+    <Project Path="src/LocadoraCarros.Domain/LocadoraCarros.Domain.csproj" />
+    <Project Path="src/LocadoraCarros.Infrastructure/LocadoraCarros.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LocadoraCarros.Domain.Tests/LocadoraCarros.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
