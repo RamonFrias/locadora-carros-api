@@ -42,15 +42,17 @@ await DbInicializador.InicializarAsync(app.Services, app.Configuration);
 app.UseExceptionHandler();
 app.UseStatusCodePages();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi().AllowAnonymous();
-    app.MapScalarApiReference(o => o.WithTitle("Locadora de Carros API")).AllowAnonymous();
-}
-else
+if (!app.Environment.IsDevelopment())
 {
     app.UseHsts();
     app.UseHttpsRedirection();
+}
+
+// Em produção a documentação só aparece com Documentacao:Habilitada = true.
+if (app.Environment.IsDevelopment() || app.Configuration.GetValue<bool>("Documentacao:Habilitada"))
+{
+    app.MapOpenApi().AllowAnonymous();
+    app.MapScalarApiReference(o => o.WithTitle("Locadora de Carros API")).AllowAnonymous();
 }
 
 app.UseAuthentication();

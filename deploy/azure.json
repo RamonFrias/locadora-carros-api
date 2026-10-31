@@ -1,0 +1,9 @@
+{
+    "grupoRecursos":  "rg-locadora-carros",
+    "local":  "brazilsouth",
+    "plano":  "plan-locadora-carros",
+    "app":  "locadora-carros-api-zuwoq",
+    "sqlServer":  "locadora-carros-sql-zuwoq",
+    "banco":  "locadora_carros",
+    "sqlAdmin":  "locadoraadmin"
+}

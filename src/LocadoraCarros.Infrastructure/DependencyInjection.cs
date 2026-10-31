@@ -26,7 +26,8 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(options => _ = provedor switch
         {
             "Sqlite" => options.UseSqlite(conexao),
-            "SqlServer" => options.UseSqlServer(conexao),
+            // Retentativas cobrem o "acordar" do Azure SQL serverless depois de pausado.
+            "SqlServer" => options.UseSqlServer(conexao, sql => sql.EnableRetryOnFailure(5)),
             "MySql" => options.UseMySQL(conexao),
             _ => throw new InvalidOperationException($"Database:Provider '{provedor}' não suportado. Use MySql, Sqlite ou SqlServer.")
         });

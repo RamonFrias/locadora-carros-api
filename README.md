@@ -163,6 +163,25 @@ Para que todos os endpoints se comportem igual:
 - **Banco**: MySQL é o padrão (`Database:Provider=MySql`, provider oficial `MySql.EntityFrameworkCore`). Para outro banco: `Database__Provider=SqlServer` ou `Sqlite` e `ConnectionStrings__Locadora=...`. Em produção, passe a connection string por variável de ambiente e use um usuário próprio da aplicação, não o `root`.
 - **Migrations**: o projeto usa `EnsureCreated` para facilitar o início. Em produção, troque por migrations do EF Core (`dotnet ef migrations add Inicial`).
 - **Seed**: mantenha `Seed:Habilitado=false` fora do ambiente de desenvolvimento.
+- **Documentação**: fora de `Development`, o Scalar só aparece com `Documentacao__Habilitada=true`.
+
+## Deploy na Azure (gratuito)
+
+A pasta `deploy/` publica a API no **App Service F1 (Free, Linux)** com **Azure SQL Database na oferta gratuita**, configurado para pausar quando a cota mensal acaba, em vez de cobrar.
+
+Pré-requisitos: Azure CLI instalado, `az login` feito e cota de F1 VMs disponível na região (assinaturas novas podem vir com cota 0; peça o aumento no portal, em Cotas → App Service).
+
+```bash
+powershell -ExecutionPolicy Bypass -File .\deploy\azure-provisionar.ps1
+```
+
+Esse primeiro comando cria os recursos. Ele gera a senha do SQL, a chave JWT e a senha dos usuários de teste e grava tudo nas configurações do App Service, sem salvar em arquivo. Ao final, mostra a URL e a senha dos usuários de teste. Pode ser executado de novo: reaproveita os nomes de `deploy/azure.json`.
+
+```bash
+powershell -ExecutionPolicy Bypass -File .\deploy\azure-publicar.ps1
+```
+
+Esse segundo comando compila em Release e publica. Use-o a cada nova versão.
 
 ## Limitações conhecidas / próximos passos
 
